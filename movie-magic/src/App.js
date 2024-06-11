@@ -1,46 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-import { useState } from 'react';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
+import { Header } from "./components/header/header";
+import logoPage from "./homeLogo.png";
 
 function App() {
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   return (
     <div className="app">
-      <header className="header">
-        <nav className="navbar">
-          <div className="logo">MovieMagic</div>
-          <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-            <ul>
-              <li>Home</li>
-              <li>Movies</li>
-              <li>Theaters</li>
-              <li>Showtimes</li>
-            </ul>
-          </div>
-          <div className="auth-buttons">
-            <button className="login-btn">Log in</button>
-            <button className="signup-btn">Sign up</button>
-          </div>
-          <div className="hamburger-menu" onClick={toggleMenu}>
-            <div className={`bar ${isMenuOpen ? 'change' : ''}`}></div>
-            <div className={`bar ${isMenuOpen ? 'change' : ''}`}></div>
-            <div className={`bar ${isMenuOpen ? 'change' : ''}`}></div>
-          </div>
-        </nav>
-      </header>
-      
+      <Header />
       <main className="main-content">
         <section className="hero">
-          <h1>Book your favorite movie tickets & enjoy the show!</h1>
-          <button className="book-tickets-btn">Book tickets</button>
+          <div className="hero-content">
+            <div className="hero-text">
+              <h1>Book your favorite movie tickets & enjoy the show!</h1>
+              <button className="book-tickets-btn">Book tickets</button>
+            </div>
+            <div className="hero-image">
+              <img src={logoPage} alt="Hero" />
+            </div>
+          </div>
         </section>
-        
+
         <section className="popular-movies">
           <h2>Find Popular Movies</h2>
           <div className="movies-grid">
@@ -51,7 +31,7 @@ function App() {
             <div className="movie-card">Now Showing!</div>
           </div>
         </section>
-        
+
         <section className="movie-categories">
           <h2>Movie Categories</h2>
           <div className="categories-grid">
@@ -74,7 +54,7 @@ function App() {
             <span>Classic</span>
           </div>
         </section>
-        
+
         <section className="ticket-plans">
           <h2>Select Your Ticket Plan</h2>
           <div className="plans-grid">
@@ -101,7 +81,7 @@ function App() {
           </div>
         </section>
       </main>
-      
+
       <footer className="footer">
         <p>MovieMagic - Your go-to movie ticket platform since 2020</p>
         <div className="footer-links">
