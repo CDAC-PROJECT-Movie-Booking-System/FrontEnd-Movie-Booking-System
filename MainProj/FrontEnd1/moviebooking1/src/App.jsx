@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import MovieList from './pages/MovieList';
 import MovieBooking from './pages/MovieBooking';
 import MovieDetails from './pages/MoviesDetails';
+import TheaterList from './pages/TheaterList';
 
 function App() {
   return <div className='container'>
@@ -18,7 +19,8 @@ function App() {
   <Route path="register" element={<Register />}/>
   <Route path="" element={<Home />}/>
   <Route path="home" element={<Home />}/>
-  <Route path="movieList" element={<MovieList />}/>
+  <Route path="movieList" element={<MovieList/>}/>
+  <Route path="theaterList" element={<TheaterList/>}/>
   <Route path="movieBooking" element={<MovieBooking />}/>
   <Route path="movieDetails" element={<MovieDetails />}/>
 </Routes>

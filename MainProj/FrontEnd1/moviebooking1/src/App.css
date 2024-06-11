@@ -267,3 +267,11 @@ body {
   color: #fff;
   text-decoration: none;
 }
+
+.card-image-top{
+  align-content: center;
+}
+
+.myCard{
+  align-items:center;
+}
