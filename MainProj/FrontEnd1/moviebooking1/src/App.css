@@ -273,5 +273,11 @@ body {
 }
 
 .myCard{
+  height: 300px;
+  margin:30px ;
   align-items:center;
+}
+.card-body-title{
+  font-weight:bold;
+  font-size: 14px;
 }
