@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 import { Header } from "./components/header/header";
-import logoPage from "./homeLogo.png";
+import logoPage from "./file.png";
 
 function App() {
   return (
