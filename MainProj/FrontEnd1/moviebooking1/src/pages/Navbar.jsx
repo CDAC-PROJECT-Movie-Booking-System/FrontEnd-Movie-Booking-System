@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function Navbar(){
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +11,7 @@ function Navbar(){
   const onLogin = () => {
     navigate('/login')
   }
+ 
   const onSignUp = () => {
     navigate('/register')
   }
@@ -21,9 +22,9 @@ function Navbar(){
           <div className="logo">MovieMagic</div>
           <div className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
             <ul>
-              <li>Home</li>
-              <li>Movies</li>
-              <li>Theaters</li>
+              <li><Link to="/home">Home</Link></li>
+              <li><Link to="/movieList">Movies</Link></li>
+              <li><Link to="/theaterList">Theaters</Link></li>
               <li>Showtimes</li>
             </ul>
           </div>

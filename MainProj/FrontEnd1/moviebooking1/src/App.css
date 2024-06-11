@@ -267,3 +267,17 @@ body {
   color: #fff;
   text-decoration: none;
 }
+
+.card-image-top{
+  align-content: center;
+}
+
+.myCard{
+  height: 300px;
+  margin:30px ;
+  align-items:center;
+}
+.card-body-title{
+  font-weight:bold;
+  font-size: 14px;
+}
