@@ -181,6 +181,9 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
 }
 
 .popular-movies, .movie-categories, .ticket-plans {
@@ -248,6 +251,9 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
 }
 
 .footer {
