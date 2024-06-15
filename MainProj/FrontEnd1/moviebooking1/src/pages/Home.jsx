@@ -1,16 +1,22 @@
-import Footer from "./Footer"
-import Navbar from "./Navbar"
+import Footer from "./Footer";
+import Navbar from "./Navbar";
+import logoPage from "../file.png";
 
-function Home(){
-    return(
-        <div>
-            <Navbar />
-            <main className="main-content">
+function Home() {
+  return (
+    <div>
+      <Navbar />
+      <main className="main-content">
         <section className="hero">
-          <h1>Book your favorite movie tickets & enjoy the show!</h1>
-          <button className="book-tickets-btn">Book tickets</button>
+          <div className="hero-content">
+            <h1>Book your favorite movie tickets & enjoy the show!</h1>
+            <button className="book-tickets-btn">Book tickets</button>
+            <div className="hero-image">
+              <img src={logoPage} alt="Hero" />
+            </div>
+          </div>
         </section>
-        
+
         <section className="popular-movies">
           <h2>Find Popular Movies</h2>
           <div className="movies-grid">
@@ -21,7 +27,7 @@ function Home(){
             <div className="movie-card">Now Showing!</div>
           </div>
         </section>
-        
+
         <section className="movie-categories">
           <h2>Movie Categories</h2>
           <div className="categories-grid">
@@ -44,7 +50,7 @@ function Home(){
             <span>Classic</span>
           </div>
         </section>
-        
+
         <section className="ticket-plans">
           <h2>Select Your Ticket Plan</h2>
           <div className="plans-grid">
@@ -71,9 +77,9 @@ function Home(){
           </div>
         </section>
       </main>
-            <Footer/>
-        </div>
-    )
+      <Footer />
+    </div>
+  );
 }
 
-export default Home
+export default Home;

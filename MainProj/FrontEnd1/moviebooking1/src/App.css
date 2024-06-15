@@ -281,3 +281,9 @@ body {
   font-weight:bold;
   font-size: 14px;
 }
+.hero-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
