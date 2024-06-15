@@ -9,8 +9,10 @@ function Home() {
       <main className="main-content">
         <section className="hero">
           <div className="hero-content">
+            <div>
             <h1>Book your favorite movie tickets & enjoy the show!</h1>
             <button className="book-tickets-btn">Book tickets</button>
+            </div>
             <div className="hero-image">
               <img src={logoPage} alt="Hero" />
             </div>
