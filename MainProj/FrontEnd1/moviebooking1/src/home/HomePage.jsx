@@ -1,8 +1,12 @@
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+import { useState } from "react";
+import Footer from "../components/footer/Footer";
+import Navbar from "../components/navbar/Navbar";
+import { Upcomming } from "../components/upcomming/Upcomming";
 import logoPage from "../file.png";
+import {upcome} from "../dummyData"
 
-function Home() {
+function HomePage() {
+  const [items, setitems] = useState(upcome)
   return (
     <div>
       <Navbar />
@@ -18,6 +22,10 @@ function Home() {
             </div>
           </div>
         </section>
+
+{/* Movie Corrosouls */}
+
+        <Upcomming items={items} title='Upcoming Movies'/>
 
         <section className="popular-movies">
           <h2>Find Popular Movies</h2>
@@ -84,4 +92,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;
