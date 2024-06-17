@@ -1,5 +1,5 @@
-import Navbar from "./Navbar"
-import Footer from "./Footer"
+import Navbar from "../components/navbar/Navbar"
+import Footer from "../components/footer/Footer"
 import { Link } from "react-router-dom"
 import aquaman from "./moviePng/aquaman.jpg"
 import avengers from "./moviePng/avengers.jpg"

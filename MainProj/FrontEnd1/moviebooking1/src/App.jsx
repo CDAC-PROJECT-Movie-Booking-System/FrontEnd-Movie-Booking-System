@@ -5,8 +5,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Home from './pages/Home';
 import MovieList from './pages/MovieList';
+import HomePage from './home/HomePage'
 import MovieBooking from './pages/MovieBooking';
 import MovieDetails from './pages/MoviesDetails';
 import TheaterList from './pages/TheaterList';
@@ -17,8 +17,8 @@ function App() {
   {/* <Route path="" element={<Login />}/> */}
   <Route path="login" element={<Login />}/>
   <Route path="register" element={<Register />}/>
-  <Route path="" element={<Home />}/>
-  <Route path="home" element={<Home />}/>
+  <Route path="" element={<HomePage />}/>
+  <Route path="home" element={<HomePage/>}/>
   <Route path="movieList" element={<MovieList/>}/>
   <Route path="theaterList" element={<TheaterList/>}/>
   <Route path="movieBooking" element={<MovieBooking />}/>
