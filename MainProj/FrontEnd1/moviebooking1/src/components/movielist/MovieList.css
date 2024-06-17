@@ -1,0 +1,42 @@
+/* Style for the card */
+.myCard {
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.myCard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the card image */
+.myCard .card-img-top {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    object-fit: cover;
+}
+
+/* Style for the card body */
+.myCard .card-body {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style for the card title */
+.myCard .card-body-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Style for the price */
+.myCard .card-body span {
+    font-weight: bold;
+    font-size: 1em;
+    color: #28a745;
+}

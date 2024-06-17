@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import MovieList from './pages/MovieList';
+import MovieList from './components/movielist/MovieList';
 import HomePage from './home/HomePage'
 import MovieBooking from './pages/MovieBooking';
 import MovieDetails from './pages/MoviesDetails';
