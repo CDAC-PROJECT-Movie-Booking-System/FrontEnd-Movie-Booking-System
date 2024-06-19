@@ -26,7 +26,7 @@ function MovieList(){
                     className="card-img-top"src={aquaman} alt=""/>
                     <div className="card-body">
                         <div className="card-body-title" > Aquaman</div>
-                        <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.550</span></div>
+                        {/* <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.550</span></div> */}
                     </div>
                 </div>
                 </Link>
@@ -39,7 +39,7 @@ function MovieList(){
                      src={avengers} alt=""/>
                     <div className="card-body">
                         <div className="card-body-title"> Avengers</div>
-                        <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.470</span></div>
+                        {/* <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.470</span></div> */}
                     </div>
                 </div>
                 </Link>
@@ -52,7 +52,7 @@ function MovieList(){
                     "src={image} alt=""/>
                     <div className="card-body">
                         <div className="card-body-title"> Matrix</div>
-                        <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.500</span></div>
+                        {/* <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.500</span></div> */}
                     </div>
                 </div>
                 </Link>
@@ -65,7 +65,7 @@ function MovieList(){
                     "src={conjuring} alt=""/>
                     <div className="card-body">
                         <div className="card-body-title"> Conjuring</div>
-                        <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.300</span></div>
+                        {/* <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.300</span></div> */}
                     </div>
                 </div>
                 </Link>
@@ -83,7 +83,7 @@ function MovieList(){
                     "src={justiceLeague} alt=""/>
                     <div className="card-body">
                         <div className="card-body-title"> Justice League</div>
-                        <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.650</span></div>
+                        {/* <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.650</span></div> */}
                     </div>
                 </div>
                 </Link>
@@ -96,7 +96,7 @@ function MovieList(){
                     "src={missionImpossible} alt=""/>
                     <div className="card-body">
                         <div className="card-body-title"> Mission Impossible</div>
-                        <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.450</span></div>
+                        {/* <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.450</span></div> */}
                     </div>
                 </div>
                 </Link>
@@ -109,7 +109,7 @@ function MovieList(){
                     "src={shawshankredeemption} alt=""/>
                     <div className="card-body">
                         <div className="card-body-title"> Shawshank Redeemption</div>
-                        <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.370</span></div>
+                        {/* <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.370</span></div> */}
                     </div>
                 </div>
                 </Link>
@@ -122,7 +122,7 @@ function MovieList(){
                     "src={spiderman} alt=""/>
                     <div className="card-body">
                         <div className="card-body-title"> Spiderman</div>
-                        <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.350</span></div>
+                        {/* <div><span style={{fontWeight:'bold',fontSize:12}}> Rs.350</span></div> */}
                     </div>
                 </div>
                 </Link>
