@@ -50,9 +50,15 @@ function Navbar(){
                 </Link>
               </li>
               <li>
-                <Link
+                {/* <Link
                   className={`navBtn ${activePath === '/theaterList' ? 'active' : ''}`}
                   to="/theaterList"
+                >
+                  Theaters
+                </Link> */}
+                <Link
+                  className={`navBtn ${activePath === '/sessions/:idFilme' ? 'active' : ''}`}
+                  to="/sessions/:idFilme"
                 >
                   Theaters
                 </Link>

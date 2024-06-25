@@ -10,6 +10,8 @@ import HomePage from './home/HomePage'
 import MovieBooking from './pages/MovieBooking';
 import MovieDetails from './pages/MoviesDetails';
 import TheaterList from './pages/TheaterList';
+import SessionsPage from './pages/SessionsPage';
+import SeatsPage from './pages/SeatsPage';
 
 function App() {
   return <div className='container'>
@@ -23,6 +25,11 @@ function App() {
   <Route path="theaterList" element={<TheaterList/>}/>
   <Route path="movieBooking" element={<MovieBooking />}/>
   <Route path="movieDetails" element={<MovieDetails />}/>
+
+
+  <Route path='/sessions/:idFilme' element={<SessionsPage />} />
+        {/* Add the following route for SeatsPage */}
+  <Route path='/seats/:idSessao' element={<SeatsPage />} />
 </Routes>
 <ToastContainer />
   </div>
