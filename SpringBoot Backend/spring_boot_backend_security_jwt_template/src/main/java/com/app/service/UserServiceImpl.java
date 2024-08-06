@@ -29,8 +29,8 @@ public class UserServiceImpl implements UserService {
 		UserEntity user = mapper.map(signup, UserEntity.class);
 	
 		userRepository.save(user);
-//		UserEntity user1=new UserEntity();
-	
+		UserEntity user1=new UserEntity();
+		
 		return new ApiResponse("User Registered Successfully" );
 	}
 
