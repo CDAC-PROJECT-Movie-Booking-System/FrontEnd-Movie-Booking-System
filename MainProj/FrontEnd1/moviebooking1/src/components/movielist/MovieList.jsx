@@ -11,10 +11,17 @@ import shawshankredeemption from "../../pages/moviePng/shawshankredeemption.jpg"
 import spiderman from "../../pages/moviePng/spiderman.jpg"
 // import titanic from "./moviePng/titanic.jpg"
 import './MovieList.css';
+import MovieSlider from "./MovieSlider"
+import {homeData} from "../../dummyData"
+import { useState } from "react"
+import './MovieSlider.css'
+
+// const [items, setItems] = useState(homeData)
 
 function MovieList(){
     return(
         <div>
+        <MovieSlider items={homeData}/>
         <Navbar />
         <h2 className="page-header">MovieList</h2>
         <div className="container">
