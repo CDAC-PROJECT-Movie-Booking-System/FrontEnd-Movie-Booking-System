@@ -1,10 +1,9 @@
+import './LoginRegister.css'
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import './LoginRegister.css'
-
-function Login(){
-    // create state members
+function Login() {
+  // create state members
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -23,24 +22,10 @@ function Login(){
     } else {
       // const result = await login(email, password)
       // if (result['status'] === 'success') {
-      //   // read the token
-      //   // const token = result['data']['token']
-      //   // const name = result['data']['name']
       //   const { token, name } = result['data']
-
-      //   // set the data in session storage
-      //   // sessionStorage.token = token
-      //   // sessionStorage.name = name
-
-      //   // sessionStorage['token'] = token
-      //   // sessionStorage['name'] = name
-
       //   sessionStorage.setItem('token', token)
       //   sessionStorage.setItem('name', name)
-
-      //   // set the login status to true
       //   dispatch(loginAction())
-
       //   toast.success('welcome to the application')
         navigate('/home')
       // } else {
@@ -48,52 +33,45 @@ function Login(){
       // }
     }
   }
-    return(
-        <div>
+
+  const onBack = () => {
+    navigate(-1); // Navigate to the previous page
+  }
+
+  return (
+    <div className='form-container'>
+      <div className='form'>
         <h2 className='page-header'>Login</h2>
-  
-        <div className='row'>
-          <div className='col'></div>
-  
-          <div className='col'>
-            <div className='form'>
-              <div className='mb-3'>
-                <label htmlFor=''>Email</label>
-                <input
-                  onChange={(e) => {
-                    setEmail(e.target.value)
-                  }}
-                  type='email'
-                  className='form-control'
-                />
-              </div>
-              <div className='mb-3'>
-                <label htmlFor=''>Password</label>
-                <input
-                  onChange={(e) => {
-                    setPassword(e.target.value)
-                  }}
-                  type='password'
-                  className='form-control'
-                />
-              </div>
-              <div className='mb-3'>
-                <div>
-                  Dont have an account yet?{' '}
-                  <Link to='/register'>Register here</Link>
-                </div>
-                <button onClick={onLogin}
-                 className='mt-2 btn btn-success'>
-                  Login
-                </button>
-              </div>
-            </div>
+        <div className='mb-3'>
+          <label htmlFor='email'>Email</label>
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            type='email'
+            className='form-control'
+            id='email'
+          />
+        </div>
+        <div className='mb-3'>
+          <label htmlFor='password'>Password</label>
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            type='password'
+            className='form-control'
+            id='password'
+          />
+        </div>
+        <div className='mb-3'>
+          <div>
+            Don't have an account yet? <Link to='/register'>Register here</Link>
           </div>
-  
-          <div className='col'></div>
+        </div>
+        <div className='button-container'>
+          <button onClick={onLogin} className='btn btn-success'>Login</button>
+          <button onClick={onBack} className='btn btn-back'>Back</button>
         </div>
       </div>
-    )
+    </div>
+  )
 }
 
 export default Login

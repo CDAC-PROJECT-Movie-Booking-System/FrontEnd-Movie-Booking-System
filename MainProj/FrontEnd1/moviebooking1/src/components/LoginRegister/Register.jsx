@@ -3,19 +3,16 @@ import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import './LoginRegister.css'
 
-
-function Register(){
-
-     // create state members
+function Register() {
+  // create state members
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
+  // const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
   // get a hook to navigate
-  // - navigate is referring a function which is used for navigation
   const navigate = useNavigate()
 
   const onCancel = () => {
@@ -27,8 +24,6 @@ function Register(){
   }
 
   const onRegister = async () => {
-    console.log('onRegister')
-
     // client side validation
     if (firstName.length === 0) {
       toast.warning('enter first name')
@@ -45,132 +40,89 @@ function Register(){
     } else if (password !== confirmPassword) {
       toast.warning('password does not match')
     } else {
-    //   // make the API call and receive the result
-    //   const result = await register(firstName, lastName, email, phone, password)
-    //   if (result['status'] === 'success') {
-    //     toast.success('successfully registered a user')
+      // const result = await register(firstName, lastName, email, phone, password)
+      // if (result['status'] === 'success') {
+      //   toast.success('successfully registered a user')
         navigate('/login')
-    //   } else {
-    //     toast.error('Failed to register the user')
-    //   }
+      // } else {
+      //   toast.error('Failed to register the user')
+      // }
     }
-}
-    return(
-        <div>
+  }
+
+  const onBack = () => {
+    navigate(-1); // Navigate to the previous page
+  }
+
+  return (
+    <div className='form-container'>
+      <div className='form'>
         <h2 className='page-header'>Register</h2>
-  
-        <div className='row mt-5'>
-          <div className='col-2'></div>
-  
-          <div className='col'>
-            <div className='row'>
-              <div className='col'>
-                <div className='mb-3'>
-                  <label htmlFor=''>First Name</label>
-                  <input
-                    onChange={(e) => {
-                      setFirstName(e.target.value)
-                    }}
-                    type='text'
-                    className='form-control'
-                  />
-                </div>
-              </div>
-  
-              <div className='col'>
-                <div className='mb-3'>
-                  <label htmlFor=''>Last Name</label>
-                  <input
-                    onChange={(e) => {
-                      setLastName(e.target.value)
-                    }}
-                    type='text'
-                    className='form-control'
-                  />
-                </div>
-              </div>
-            </div>
-  
-            <div className='row'>
-              <div className='col'>
-                <div className='mb-3'>
-                  <label htmlFor=''>Email</label>
-                  <input
-                    onChange={(e) => {
-                      setEmail(e.target.value)
-                    }}
-                    type='email'
-                    className='form-control'
-                  />
-                </div>
-              </div>
-  
-              <div className='col'>
-                <div className='mb-3'>
-                  <label htmlFor=''>Phone Number</label>
-                  <input
-                    onChange={(e) => {
-                      setPhone(e.target.value)
-                    }}
-                    type='tel'
-                    className='form-control'
-                  />
-                </div>
-              </div>
-            </div>
-  
-            <div className='row'>
-              <div className='col'>
-                <div className='mb-3'>
-                  <label htmlFor=''>Password</label>
-                  <input
-                    onChange={(e) => {
-                      setPassword(e.target.value)
-                    }}
-                    type='password'
-                    className='form-control'
-                  />
-                </div>
-              </div>
-  
-              <div className='col'>
-                <div className='mb-3'>
-                  <label htmlFor=''>Confirm Password</label>
-                  <input
-                    onChange={(e) => {
-                      setConfirmPassword(e.target.value)
-                    }}
-                    type='password'
-                    className='form-control'
-                  />
-                </div>
-              </div>
-            </div>
-  
-            <div className='row'>
-              <div className='col'>
-                <div className='mb-3'>
-                  Already have account ? <Link to='/login'>Login here</Link>
-                </div>
-  
-                <button 
-                onClick={onRegister} 
-                className='btn btn-success'>
-                  Register
-                </button>
-                <button 
-                onClick={onCancel} 
-                className='btn btn-danger ms-2'>
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-  
-          <div className='col-2'></div>
+        <div className='mb-3'>
+          <label htmlFor='firstName'>First Name</label>
+          <input
+            onChange={(e) => setFirstName(e.target.value)}
+            type='text'
+            className='form-control'
+            id='firstName'
+          />
+        </div>
+        <div className='mb-3'>
+          <label htmlFor='lastName'>Last Name</label>
+          <input
+            onChange={(e) => setLastName(e.target.value)}
+            type='text'
+            className='form-control'
+            id='lastName'
+          />
+        </div>
+        <div className='mb-3'>
+          <label htmlFor='email'>Email</label>
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            type='email'
+            className='form-control'
+            id='email'
+          />
+        </div>
+        {/* <div className='mb-3'>
+          <label htmlFor='phone'>Phone Number</label>
+          <input
+            onChange={(e) => setPhone(e.target.value)}
+            type='tel'
+            className='form-control'
+            id='phone'
+          />
+        </div> */}
+        <div className='mb-3'>
+          <label htmlFor='password'>Password</label>
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            type='password'
+            className='form-control'
+            id='password'
+          />
+        </div>
+        <div className='mb-3'>
+          <label htmlFor='confirmPassword'>Confirm Password</label>
+          <input
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            type='password'
+            className='form-control'
+            id='confirmPassword'
+          />
+        </div>
+        <div className='mb-3'>
+          Already have an account? <Link to='/login'>Login here</Link>
+        </div>
+        <div className='button-container'>
+          <button onClick={onRegister} className='btn btn-success'>Register</button>
+          <button onClick={onCancel} className='btn btn-danger'>Cancel</button>
+          <button onClick={onBack} className='btn btn-back'>Back</button>
         </div>
       </div>
-    )
+    </div>
+  )
 }
 
 export default Register

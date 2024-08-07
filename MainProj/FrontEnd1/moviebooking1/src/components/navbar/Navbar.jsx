@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import './Navbar.css';
@@ -22,28 +23,7 @@ function Navbar() {
     setActivePath(location.pathname);
   }, [location.pathname]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (isMenuOpen) {
-        navLinksContainerRef.current.style.maxHeight = `${navLinksContainerRef.current.scrollHeight}px`;
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isMenuOpen]);
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      navLinksContainerRef.current.style.maxHeight = `${navLinksContainerRef.current.scrollHeight}px`;
-      navLinksContainerRef.current.style.opacity = '1';
-    } else {
-      navLinksContainerRef.current.style.maxHeight = '0';
-      navLinksContainerRef.current.style.opacity = '0';
-    }
-  }, [isMenuOpen]);
-
+ 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
