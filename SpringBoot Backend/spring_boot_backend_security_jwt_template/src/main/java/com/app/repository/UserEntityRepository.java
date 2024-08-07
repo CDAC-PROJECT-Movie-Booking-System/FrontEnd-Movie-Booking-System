@@ -11,6 +11,6 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 //derived finder 
 //	Optional<UserEntity> findByEmail(String email);
 	
-	
+	Optional<UserEntity> findByEmailAndPassword(String email,String pass);
 
 }

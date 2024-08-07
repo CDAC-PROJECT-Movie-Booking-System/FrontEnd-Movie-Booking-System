@@ -18,4 +18,6 @@ public interface UserService {
 	ApiResponse userRegistration(Signup signup);
 	
 	List<UserEntity> getAllUser();
+	
+	SigninResponse authenticateUser(SigninRequest dto);
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.app.custom_exceptions.AuthenticationException;
 import com.app.dto.ApiResponse;
 import com.app.dto.SigninRequest;
 import com.app.dto.SigninResponse;
@@ -40,6 +41,18 @@ public class UserServiceImpl implements UserService {
 		
 		
 		return userRepository.findAll();
+	}
+
+
+	@Override
+	public SigninResponse authenticateUser(SigninRequest dto) {
+		// 1.invoke dao 's method
+		UserEntity user = userRepository.findByEmailAndPassword(
+						dto.getEmail(), dto.getPassword())
+						.orElseThrow(() -> 
+						new AuthenticationException("Invalid Email or Password !!!!!!"));
+				//valid login -user : persistent -> entity -> dto
+				return mapper.map(user, SigninResponse.class);
 	}
 	
 
