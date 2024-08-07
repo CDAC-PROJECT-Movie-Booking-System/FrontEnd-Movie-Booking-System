@@ -4,7 +4,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     border-radius: 15px;
     overflow: hidden;
-    height: 340px;
+    height: 370px;
     margin: 20px;
     align-items: center;
 }
@@ -54,9 +54,11 @@
 }
 .card-body-lan {
     font-size: 15px;
+    color: gray;
 }
 
 
 a {
     text-decoration: none !important; 
 }
+

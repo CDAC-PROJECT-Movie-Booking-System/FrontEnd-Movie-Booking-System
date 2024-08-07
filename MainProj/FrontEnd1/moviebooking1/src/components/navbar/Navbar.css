@@ -1,8 +1,12 @@
+/* Base styling for navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 10px 20px;
+  background-color: #333;
+  border-radius: 25px;
 }
 
 .navBtn {
@@ -17,6 +21,7 @@
   font-weight: bold;
 }
 
+/* Navigation links for desktop */
 .nav-links {
   list-style: none;
   display: flex;
@@ -25,15 +30,28 @@
   padding: 0;
 }
 
-.nav-links ul li {
+.nav-links-container {
+  display: flex;
+  align-items: center;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  max-height: 1000px; /* Large value to ensure it's open in desktop view */
+  opacity: 1;
+  overflow: hidden;
+}
+
+.nav-links-container.open {
+  opacity: 1;
+  max-height: 1000px; /* Large value to ensure it's open in desktop view */
+}
+
+.nav-links li {
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.3s;
-  flex: 1;
 }
 
-.navbar .nav-links ul li:hover {
-  background-color: #333;
+.nav-links li:hover {
+  background-color: #444;
   border-radius: 10px;
 }
 
@@ -44,7 +62,7 @@
 
 .navbar .auth-buttons .login-btn,
 .navbar .auth-buttons .signup-btn {
-  background-color: #333;
+  background-color: #444;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
@@ -62,29 +80,52 @@
   border-radius: 10px;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .nav-links-container {
-    display: none;
-  }
-
-  .nav-links-container.open {
-    display: block;
-  }
-
-  .hamburger-menu {
-    display: block;
-  }
+/* Hamburger menu styling */
+.hamburger-menu {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
 }
 
 .hamburger-menu .bar {
   width: 25px;
   height: 3px;
   margin: 5px 0;
-  background-color: #000;
+  background-color: #fff;
   transition: 0.4s;
 }
 
 .hamburger-menu .bar.change {
-  background-color: #fff;
+  background-color: #ff4500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .nav-links-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    background-color: #333;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  .nav-links-container.open {
+    max-height: 1000px; /* Large value to ensure it's open in mobile view */
+    opacity: 1;
+  }
+
+  .nav-links {
+    flex-direction: column;
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
+
+  .nav-links .navBtn {
+    padding: 10px 0;
+  }
 }
