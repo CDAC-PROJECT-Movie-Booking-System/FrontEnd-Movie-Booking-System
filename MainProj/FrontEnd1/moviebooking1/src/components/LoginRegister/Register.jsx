@@ -2,13 +2,13 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import './LoginRegister.css'
+import { userRegister } from "../../Services/User"
 
 function Register() {
   // create state members
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  // const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -40,13 +40,13 @@ function Register() {
     } else if (password !== confirmPassword) {
       toast.warning('password does not match')
     } else {
-      // const result = await register(firstName, lastName, email, phone, password)
-      // if (result['status'] === 'success') {
-      //   toast.success('successfully registered a user')
+      const result = await userRegister(firstName, lastName, email, password)
+      if (result['message'] === 'success') {
+        toast.success('successfully registered a user')
         navigate('/login')
-      // } else {
-      //   toast.error('Failed to register the user')
-      // }
+      } else {
+        toast.error('Failed to register the user')
+      }
     }
   }
 

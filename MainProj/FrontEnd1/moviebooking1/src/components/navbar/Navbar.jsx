@@ -8,13 +8,26 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const navLinksContainerRef = useRef(null);
+  const [name, setName] = useState('');
 
+  useEffect(() => {
+    const storedName = sessionStorage.getItem('name');
+    if (storedName) {
+      setName(storedName);
+    }
+  }, []);
   const onLogin = () => {
     navigate('/login');
   }
 
   const onSignUp = () => {
     navigate('/register');
+  }
+
+  const onLogOut = () => {
+    sessionStorage.removeItem('name');
+    window.location.reload();
+    navigate('/home');
   }
 
   const [activePath, setActivePath] = useState(location.pathname);
@@ -58,10 +71,10 @@ function Navbar() {
                 to="/theaterList"
                 onClick={toggleMenu}
               >
-                Theaters
+                MyTickets
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 className={`navBtn ${activePath === '/showtimes' ? 'active' : ''}`}
                 to="/"
@@ -69,12 +82,17 @@ function Navbar() {
               >
                 Showtimes
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="auth-buttons">
+          { name == '' ?
+          (<>
           <button onClick={onLogin} className="login-btn">Log in</button>
           <button onClick={onSignUp} className="signup-btn">Sign up</button>
+          </>) :
+          (<button onClick={onLogOut} className="signup-btn">Log Out</button>)
+          }
         </div>
         <div className="hamburger-menu" onClick={toggleMenu}>
           <div className={`bar ${isMenuOpen ? 'change' : ''}`}></div>

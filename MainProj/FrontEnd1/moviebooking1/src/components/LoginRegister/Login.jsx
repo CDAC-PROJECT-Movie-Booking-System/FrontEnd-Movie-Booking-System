@@ -2,6 +2,7 @@ import './LoginRegister.css'
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import { userLogin } from '../../Services/User'
 function Login() {
   // create state members
   const [email, setEmail] = useState('')
@@ -20,19 +21,21 @@ function Login() {
     } else if (password.length === 0) {
       toast.warning('enter password')
     } else {
-      // const result = await login(email, password)
-      // if (result['status'] === 'success') {
+      const result = await userLogin(email, password)
+      console.log(result['message'])
+      if (result['message'] === 'success') {
+        // console.log(result)
       //   const { token, name } = result['data']
       //   sessionStorage.setItem('token', token)
-      //   sessionStorage.setItem('name', name)
-      //   dispatch(loginAction())
-      //   toast.success('welcome to the application')
+        sessionStorage.setItem('name', result.firstName)
+        // dispatch(loginAction())
+        toast.success(`welcome to the application, ${result['firstName']}`)
         navigate('/home')
-      // } else {
-      //   toast.error('invalid email or password')
-      // }
-    }
+      } else {
+        toast.error('invalid email or password')
+      }
   }
+}
 
   const onBack = () => {
     navigate(-1); // Navigate to the previous page
