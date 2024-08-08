@@ -22,8 +22,8 @@ function Login() {
       toast.warning('enter password')
     } else {
       const result = await userLogin(email, password)
-      console.log(result['message'])
-      if (result['message'] === 'success') {
+      // console.log(result['message'])
+      if (result !== undefined && result['message'] === 'success') {
         // console.log(result)
       //   const { token, name } = result['data']
       //   sessionStorage.setItem('token', token)
@@ -31,9 +31,10 @@ function Login() {
         // dispatch(loginAction())
         toast.success(`welcome to the application, ${result['firstName']}`)
         navigate('/home')
-      } else {
-        toast.error('invalid email or password')
-      }
+       } 
+      //  else {
+      //   toast.error('invalid email or password')
+      // }
   }
 }
 

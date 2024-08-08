@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-const MovieCard = ({ item: { id, cover, name, rating, time, desc, starring, genres, tags, video } }) => {
+const MovieSliderCard = ({ item: { id, cover, name, rating, time, desc, starring, genres, tags, video } }) => {
   return (
     <>
       <div className='box'>
@@ -59,4 +59,4 @@ const MovieCard = ({ item: { id, cover, name, rating, time, desc, starring, genr
   )
 }
 
-export default MovieCard
+export default MovieSliderCard
