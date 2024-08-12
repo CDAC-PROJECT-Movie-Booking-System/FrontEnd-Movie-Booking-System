@@ -57,7 +57,11 @@
     color: gray;
 }
 
-
+.pagination{
+    justify-content: space-around;
+    padding: 15px;
+    align-items: center;
+}
 a {
     text-decoration: none !important; 
 }

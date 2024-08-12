@@ -112,7 +112,7 @@ function MovieList() {
                 console.log('Fetched data:', data);
                 if (Array.isArray(data.movies)) {  // Adjust based on the actual structure of your data
                     setMovieList(data.movies);  // Update the state with movie data
-                    setTotalPages(data.totalPages);  // Set total pages (if available)
+                    setTotalPages(Math.ceil(data.totalMovies / 4));  // Set total pages (if available)
                 } else {
                     console.error("Expected array but got", data);
                 }
@@ -143,6 +143,7 @@ function MovieList() {
                             image={`${config.url}/moviestest/image/${movie.id}`} 
                             title={movie.mname} 
                             languages={["English", "Hindi"]} 
+                            id={movie.id}
                         />
                     ))}
                 </div>
@@ -150,6 +151,9 @@ function MovieList() {
                     <button 
                         onClick={() => handlePageChange(pageNo - 1)}
                         disabled={pageNo === 0}
+                        style={{
+                            opacity: pageNo === 0 ? 0 : 1,
+                        }}
                     >
                         Previous
                     </button>
@@ -157,6 +161,9 @@ function MovieList() {
                     <button 
                         onClick={() => handlePageChange(pageNo + 1)}
                         disabled={pageNo >= totalPages - 1}
+                        style={{
+                            opacity: pageNo >= totalPages - 1 ? 0 : 1,
+                        }}
                     >
                         Next
                     </button>
@@ -167,10 +174,10 @@ function MovieList() {
     );
 }
 
-const MovieCard = ({ image, title, languages }) => {
+const MovieCard = ({ image, title, languages, id }) => {
     return (
         <div className="col-md-3 mb-4 col-sm-6">
-            <Link to="/movieDetails">
+            <Link to={`${config.url}/moviestest/${id}`}>
                 <div className="card myCard">
                     <img className="card-img-top" src={image} alt={title} />
                     <div className="card-body">

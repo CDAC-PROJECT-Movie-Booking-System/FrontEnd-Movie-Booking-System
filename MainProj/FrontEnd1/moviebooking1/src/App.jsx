@@ -24,6 +24,7 @@ function App() {
   <Route path="theaterList" element={<TheaterList/>}/>
   <Route path="movieBooking" element={<MovieBooking />}/>
   <Route path="movieDetails" element={<MovieDetails />}/>
+  
 </Routes>
 <ToastContainer />
   </div>
