@@ -12,12 +12,12 @@ const cartSlice = createSlice({
   reducers: {
     increment: (state) => {
       state.selectedSeats += 1;
-      state.value += 10; // Cost per seat
+      state.value += 120; // Cost per seat
     },
     decrement: (state) => {
       if (state.selectedSeats > 0) {
         state.selectedSeats -= 1;
-        state.value -= 10; // Cost per seat
+        state.value -= 120; // Cost per seat
       }
     },
     reset: (state) => {

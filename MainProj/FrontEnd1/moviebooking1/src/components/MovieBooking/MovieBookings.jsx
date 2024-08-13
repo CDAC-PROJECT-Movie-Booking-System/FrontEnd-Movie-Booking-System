@@ -99,7 +99,7 @@ const SeatSelection = ({ seats, onSelectSeat }) => {
 const Summary = ({ selectedSeats, totalCost, onCheckout, seats }) => (
   <div className="summary">
     <p>Movies Selected: {seats}</p>
-    <p>Total Cost: ${totalCost}</p>
+    <p>Total Cost: {totalCost} Rs</p>
     <button id='rzp-button1' onClick={()=>onCheckout(totalCost)}>CHECKOUT</button>
   </div>
 );
@@ -114,12 +114,12 @@ const MovieBookings = () => {
   const [movieData, setMovieData] = useState(null);
   const {id} = useParams()
   const [seats, setSeats] = useState(
-    [{ type: 'regular', status: 'taken' }, { type: 'regular', status: 'taken' }, { type: 'regular', status: 'taken' },
-    { type: 'comfort', status: 'taken' }, { type: 'comfort', status: 'taken' }, { type: 'comfort', status: 'taken' },
+    [{ type: 'regular', status: 'available' }, { type: 'regular', status: 'available' }, { type: 'regular', status: 'taken' },
+    { type: 'comfort', status: 'taken' }, { type: 'comfort', status: 'available' }, { type: 'comfort', status: 'taken' },
     { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' },
-    { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' },
-    { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' },
-    { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' },
+    { type: 'vip', status: 'available' }, { type: 'vip', status: 'taken' }, { type: 'vip', status: 'available' },
+    { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' }, { type: 'vip', status: 'taken' },
+    { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' }, { type: 'vip', status: 'taken' },
     { type: 'regular', status: 'available' }, { type: 'regular', status: 'available' },
   ]);
   useEffect(() => {
