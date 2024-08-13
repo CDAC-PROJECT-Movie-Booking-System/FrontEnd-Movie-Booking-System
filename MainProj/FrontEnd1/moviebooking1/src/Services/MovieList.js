@@ -12,6 +12,18 @@ export async function fetchMovieDetails(pageNumber){
     }
 }
 
+export async function fetchMovieDetailsByid(id){     
+    try{
+        const response = await axios.get(`${config.url}/moviestest/${id}`);
+        return response.data;
+    }catch(error){
+        console.log('error-response', error);
+        // toast.error(error.response.data.message)
+    }
+}
+
+
+
 // export async function fetchSliderDetails(firstName, lastName, email, password){
 //     const body = {
 //         firstName, lastName, email, password

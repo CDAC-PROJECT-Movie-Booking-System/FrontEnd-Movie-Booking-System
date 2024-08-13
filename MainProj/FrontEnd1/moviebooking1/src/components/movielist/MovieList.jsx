@@ -177,7 +177,7 @@ function MovieList() {
 const MovieCard = ({ image, title, languages, id }) => {
     return (
         <div className="col-md-3 mb-4 col-sm-6">
-            <Link to={`${config.url}/moviestest/${id}`}>
+            <Link to={`/movieBooking/${id}`}>
                 <div className="card myCard">
                     <img className="card-img-top" src={image} alt={title} />
                     <div className="card-body">

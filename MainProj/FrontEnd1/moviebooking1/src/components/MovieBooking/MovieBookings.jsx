@@ -1,23 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MovieBooking.css';
 import available from './seat_availabale.png'
 import taken from './seat_booked.png'
 import selected from './seat_selected.png'
 import { paymentStart } from '../../Services/Payment';
+import { useDispatch, useSelector } from 'react-redux';
+import { increment, decrement, reset } from '../../Redux/cart/cartSlice';
+import { useParams } from 'react-router-dom';
+import { fetchMovieDetailsByid } from '../../Services/MovieList';
+import config from '../../config';
 
-const MovieDetails = () => (
-  <div className="movie-details">
-    <img src="https://example.com/wolverine.jpg" alt="The Wolverine 2013" />
-    <h2>The Wolverine 2013</h2>
-    <div className="rating">
-      <span>⭐️⭐️⭐️⭐️⭐️</span>
-      <span>129 reviews</span>
+const MovieDetails = ({ movieData }) => {
+  if (!movieData) {
+    return <p>Loading movie details...</p>;
+  }
+  const rating = movieData.mrating;
+  const maxStars = 5;
+  const filledStars = Math.round((rating / 10) * maxStars);
+  const emptyStars = maxStars - filledStars;
+
+  return (
+    <div className="movie-details">
+      <img src={`${config.url}/moviestest/image/${movieData.id}`} alt={movieData.mname} />
+      <h2>{movieData.mname}</h2>
+      <div className="rating">
+        {/* Render filled stars */}
+        {Array(filledStars).fill('⭐️').map((star, index) => (
+          <span key={`filled-star-${index}`}>{star}</span>
+        ))}
+        {/* Render empty stars */}
+        {Array(emptyStars).fill(<>&#9734;</>).map((star, index) => (
+          <span key={`empty-star-${index}`} style={{ color: '#ccc' }}>{star}</span>
+        ))}
+        <span>{`${rating} reviews`}</span>
+      </div>
+      <p>{movieData.mdescription}</p>
+      <p>Rating: {movieData.mrating}</p>
     </div>
-    <p>Duration: 2h 46min</p>
-    <p>Type: Action, Thriller</p>
-    <p>Premiere: 8 November 2020</p>
-  </div>
-);
+  );
+};
 
 const DateSelection = ({ selectedDate, onSelectDate }) => (
   <div className="date-selection">
@@ -75,20 +96,23 @@ const SeatSelection = ({ seats, onSelectSeat }) => {
   );
 };
 
-const Summary = ({ selectedSeats, totalCost }) => (
+const Summary = ({ selectedSeats, totalCost, onCheckout, seats }) => (
   <div className="summary">
-    <p>Total: ${totalCost}</p>
+    <p>Movies Selected: {seats}</p>
+    <p>Total Cost: ${totalCost}</p>
     <button id='rzp-button1' onClick={()=>onCheckout(totalCost)}>CHECKOUT</button>
   </div>
 );
 
-const onCheckout = (totalCost) => {
-  paymentStart(totalCost)
-}
 
 const MovieBookings = () => {
   const [selectedDate, setSelectedDate] = useState(0);
   const [selectedTime, setSelectedTime] = useState(3);
+  const amount = useSelector((state)=>state.cart.value)
+  const tickets = useSelector((state)=>state.cart.selectedSeats)
+  const dispatch = useDispatch()
+  const [movieData, setMovieData] = useState(null);
+  const {id} = useParams()
   const [seats, setSeats] = useState(
     [{ type: 'regular', status: 'taken' }, { type: 'regular', status: 'taken' }, { type: 'regular', status: 'taken' },
     { type: 'comfort', status: 'taken' }, { type: 'comfort', status: 'taken' }, { type: 'comfort', status: 'taken' },
@@ -98,31 +122,45 @@ const MovieBookings = () => {
     { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' }, { type: 'vip', status: 'available' },
     { type: 'regular', status: 'available' }, { type: 'regular', status: 'available' },
   ]);
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const data = await fetchMovieDetailsByid(id);  // Fetch data for the current page
+            console.log('Fetched data:', data);
+            setMovieData(data)
+        } catch (error) {
+            console.error("Error fetching movie details:", error);
+        }
+    };
+    if (id) {
+      fetchData();
+    }
+}, [id]);
 
   const handleSeatSelection = (seatIndex) => {
-    const newSeats = seats.map((seat, index) =>
-      index === seatIndex
-        ? seat.status === 'available'
-          ? { ...seat, status: 'selected' }
-          : seat.status === 'selected'
-          ? { ...seat, status: 'available' }
-          : seat
-        : seat
-    );
-    setSeats(newSeats);
+    const seat = seats[seatIndex];
+    if (seat.status === 'available') {
+      dispatch(increment());
+      seats[seatIndex] = { status: 'selected' };
+    } else if (seat.status === 'selected') {
+      dispatch(decrement());
+      seats[seatIndex] = { status: 'available' };
+    }
+    // Update state with new seats array
   };
   
-  
-
-  const totalCost = 120; // Calculate this based on selected seats
+  const handleCheckout = (totalCost) => {
+    paymentStart(totalCost);
+    dispatch(reset()); // Reset cart after payment
+  };
 
   return (
     <div className="movie-booking">
-      <MovieDetails />
+      <MovieDetails movieData={movieData}/>
       <DateSelection selectedDate={selectedDate} onSelectDate={setSelectedDate} />
       <ShowTimeSelection selectedTime={selectedTime} onSelectTime={setSelectedTime} />
       <SeatSelection seats={seats} onSelectSeat={handleSeatSelection} />
-      <Summary selectedSeats={seats} totalCost={totalCost} />
+      <Summary selectedSeats={seats} onCheckout={handleCheckout} totalCost={amount} seats={tickets} />
     </div>
   );
 };

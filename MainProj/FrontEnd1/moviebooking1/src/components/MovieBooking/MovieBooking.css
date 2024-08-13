@@ -1,3 +1,13 @@
+.rating span {
+  font-size: 1.5em; /* Adjust size as needed */
+  color: gold; /* Color for filled stars */
+  background-color: transparent;
+}
+
+.rating span:nth-child(n+6) {
+  color: #ccc; /* Color for empty stars */
+  background-color: transparent;
+}
 .movie-booking {
     display: flex;
     flex-direction: column;
@@ -10,8 +20,10 @@
   }
   
   .movie-details img {
-    width: 100%;
-    border-radius: 10px;
+    width: 30%;
+    border-radius: 10%;
+    margin-bottom: 4%;
+    margin-top: 1%;
   }
   
   .date-selection ul {
