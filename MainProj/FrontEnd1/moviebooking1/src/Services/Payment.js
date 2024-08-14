@@ -16,9 +16,7 @@ export async function paymentStart(amount) {
         console.log("Payment started");
 
         // Fetch the order details from your server
-        const body ={
-            amount
-        }
+        const body = { amount };
         const response = await axios.post(`${config.url}/order`, body);
 
         // Load the Razorpay script
@@ -28,54 +26,53 @@ export async function paymentStart(amount) {
             throw new Error("Failed to load Razorpay script");
         }
 
-        // Define Razorpay options
-        if(response.data.status==="created"){
-        var options = {
-            key: "rzp_test_424E58xpMxZkTG", // Enter the Key ID generated from the Dashboard
-            amount: response.data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            currency: "INR",
-            name: "Movie Magic", // Your business name
-            description: "Movie Ticket",
-            image: "", // You can add a logo URL if needed
-            order_id: response.data.order_id, // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            handler: function (response) {
-                console.log(response.razorpay_payment_id);
-                console.log(response.razorpay_order_id);
-                console.log(response.razorpay_signature);
-            },
-            prefill: {
-                name: "Your name", // Your customer's name
-                email: "test@example.com",
-                contact: "9000090000" // Provide the customer's phone number
-            },
-            notes: {
-                address: "Sunbeam, Hinjewadi"
-            },
-            theme: {
-                color: "#3399cc"
+        return new Promise((resolve, reject) => {
+            if (response.data.status === "created") {
+                var options = {
+                    key: "rzp_test_424E58xpMxZkTG", // Enter the Key ID generated from the Dashboard
+                    amount: response.data.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                    currency: "INR",
+                    name: "Movie Magic", // Your business name
+                    description: "Movie Ticket",
+                    image: "", // You can add a logo URL if needed
+                    order_id: response.data.order_id, // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                    handler: function (response) {
+                        console.log(response);
+                        console.log(response.razorpay_payment_id);
+                        console.log(response.razorpay_order_id);
+                        console.log(response.razorpay_signature);
+                        resolve(response); // Resolve the promise if payment is successful
+                    },
+                    prefill: {
+                        name: "Your name", // Your customer's name
+                        email: "test@example.com",
+                        contact: "9000090000" // Provide the customer's phone number
+                    },
+                    notes: {
+                        address: "Sunbeam, Hinjewadi"
+                    },
+                    theme: {
+                        color: "#3399cc"
+                    }
+                };
+
+                var rzp1 = new window.Razorpay(options);
+                rzp1.on('payment.failed', function (response) {
+                    console.log(response.error.code);
+                    console.log(response.error.description);
+                    console.log(response.error.source);
+                    console.log(response.error.step);
+                    console.log(response.error.reason);
+                    console.log(response.error.metadata.order_id);
+                    console.log(response.error.metadata.payment_id);
+                    reject(response); // Reject the promise if payment fails
+                });
+
+                rzp1.open();
             }
-        };
-
-        // Create a Razorpay instance and open the payment gateway
-        var rzp1 = new window.Razorpay(options); // Ensure Razorpay is in the global window object
-        rzp1.on('payment.failed', function (response) {
-            console.log(response.error.code);
-            console.log(response.error.description);
-            console.log(response.error.source);
-            console.log(response.error.step);
-            console.log(response.error.reason);
-            console.log(response.error.metadata.order_id);
-            console.log(response.error.metadata.payment_id);
         });
-
-        rzp1.open();
-    }
-    console.log(response)
-        return response;
-        
     } catch (error) {
         console.log('error-response', error);
-        // Handle error, e.g., show a toast notification
-        // toast.error(error.response?.data?.message || "An error occurred");
+        throw error; // Rethrow the error to be handled in the caller
     }
 }
