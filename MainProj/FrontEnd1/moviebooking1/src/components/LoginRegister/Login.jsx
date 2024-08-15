@@ -23,13 +23,15 @@ function Login() {
     } else {
       const result = await userLogin(email, password)
       // console.log(result['message'])
-      if (result !== undefined && result['message'] === 'success') {
+      if (result !== undefined && result.status === 200) {
         // console.log(result)
       //   const { token, name } = result['data']
       //   sessionStorage.setItem('token', token)
-        sessionStorage.setItem('name', result.firstName)
+        sessionStorage.setItem('name', result.data.firstName)
+        sessionStorage.setItem('token', `Bearer ${result.data.jwt}`)
+
         // dispatch(loginAction())
-        toast.success(`welcome to the application, ${result['firstName']}`)
+        toast.success(`welcome to the application, ${result.data['firstName']}`)
         navigate('/home')
        } 
       //  else {

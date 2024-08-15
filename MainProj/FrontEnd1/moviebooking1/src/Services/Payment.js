@@ -13,11 +13,21 @@ function loadScript(src) {
 
 export async function paymentStart(amount) {
     try {
+        const token = sessionStorage.getItem('token')
+
         console.log("Payment started");
 
         // Fetch the order details from your server
-        const body = { amount };
-        const response = await axios.post(`${config.url}/order`, body);
+
+        const response = await axios.post(
+            `${config.url}/order`,
+            { amount }, // Only include the amount in the body
+            {
+                headers: {
+                    Authorization: token // Include the token in the Authorization header
+                }
+            }
+        );
 
         // Load the Razorpay script
         const scriptLoaded = await loadScript('https://checkout.razorpay.com/v1/checkout.js');

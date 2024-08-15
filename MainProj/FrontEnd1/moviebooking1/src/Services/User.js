@@ -8,7 +8,8 @@ export async function userLogin(email, password){
     }
     try{
         const response = await axios.post(`${config.url}/users/signin`,body);
-        return response.data;
+        console.log(response)
+        return response;
     }catch(error){
         console.log('error-response', error);
         toast.error(error.response.data.message)

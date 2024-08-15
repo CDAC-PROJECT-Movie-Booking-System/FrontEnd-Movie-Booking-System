@@ -221,6 +221,10 @@ const MovieBookings = () => {
       // Reset the cart
       dispatch(reset());
     } catch (error) {
+      if(error.response.status==401)
+        toast.error("Log in required!!!")
+      else
+        toast.error("Select tickets")
       console.error('Error during checkout:', error);
     }
   };
