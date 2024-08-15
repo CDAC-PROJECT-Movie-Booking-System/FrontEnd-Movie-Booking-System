@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/footer/Footer";
 import Navbar from "../components/navbar/Navbar";
 import { Upcomming } from "../components/upcomming/Upcomming";
@@ -7,6 +7,14 @@ import {upcome} from "../dummyData"
 
 function HomePage() {
   const [items, setitems] = useState(upcome)
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const storedName = sessionStorage.getItem('name');
+    if (storedName) {
+      setName(storedName);
+    }
+  }, []);
   return (
     <div>
       <Navbar />
@@ -14,6 +22,7 @@ function HomePage() {
         <section className="hero">
           <div className="hero-content">
             <div>
+             { name == '' ? (<></>)  : (<h1>Welcome {name},</h1>) }
             <h1>Book your favorite movie tickets & enjoy the show!</h1>
             <button className="book-tickets-btn">Book tickets</button>
             </div>
