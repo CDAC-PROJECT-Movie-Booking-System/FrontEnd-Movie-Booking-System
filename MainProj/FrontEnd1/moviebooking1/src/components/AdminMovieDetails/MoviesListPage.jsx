@@ -1,18 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './MoviesListPage.css'
+import './MoviesListPage.css';
 import config from '../../config';
+import { toast } from 'react-toastify';
+import UpdateMovieModal from './UpdateMovieModal';
 
 const MoviesListPage = () => {
   const [movies, setMovies] = useState([]);
   const [expandedMovieIndex, setExpandedMovieIndex] = useState(null);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [movieToUpdate, setMovieToUpdate] = useState(null);
 
   useEffect(() => {
     const fetchMovies = async () => {
+      const token = sessionStorage.getItem('token');
       try {
-        const response = await axios.get('http://localhost:8080/moviestest');
+        const response = await axios.post('http://localhost:8080/admin/moviestest', {}, {
+          headers: {
+            Authorization: token // Include the token in the Authorization header
+          }
+        });
         setMovies(response.data);
+        console.log(response)
       } catch (error) {
+        if (error.response.status === 401) {
+          toast.error("You are not admin")
+        }
         console.error('Error fetching movies:', error);
       }
     };
@@ -22,6 +35,63 @@ const MoviesListPage = () => {
 
   const toggleShowtimes = (index) => {
     setExpandedMovieIndex(expandedMovieIndex === index ? null : index);
+  };
+
+  // const handleUpdate = (id, updatedMovieData) => {
+  //   const token = sessionStorage.getItem('token');
+  //   axios.put(`http://localhost:8080/moviestest/update/${id}`, updatedMovieData, {
+  //     headers: {
+  //       Authorization: token // Include the token in the Authorization header
+  //     }
+  //   })
+  //   .then(() => {
+  //     toast.success('Movie updated successfully!');
+  //     setMovies(movies.map(movie => movie.id === id ? { ...movie, ...updatedMovieData } : movie));
+  //     setIsUpdateModalOpen(false);
+  //   })
+  //   .catch(error => {
+  //     console.error('Error updating movie:', error);
+  //     toast.error('Failed to update movie.');
+  //   });
+  // };
+  const handleUpdate = (id, updatedMovieData) => {
+    const token = sessionStorage.getItem('token');
+    axios.put(`http://localhost:8080/moviestest/update/${id}`, updatedMovieData, {
+      headers: {
+        Authorization: token // Include the token in the Authorization header
+      }
+    })
+    .then(() => {
+      toast.success('Movie updated successfully!');
+      setMovies(movies.map(movie => movie.id === id ? { ...movie, ...updatedMovieData } : movie));
+      setIsUpdateModalOpen(false);
+    })
+    .catch(error => {
+      console.error('Error updating movie:', error);
+      toast.error('Failed to update movie.');
+    });
+  };
+  
+
+  const handleDelete = async (id) => {
+    try {
+      const token = sessionStorage.getItem('token');
+      await axios.delete(`http://localhost:8080/moviestest/delete/${id}`, {
+        headers: {
+          Authorization: token // Include the token in the Authorization header
+        }
+      });
+      toast.success('Movie deleted successfully!');
+      setMovies(movies.filter(movie => movie.id !== id));
+    } catch (error) {
+      console.error('Error deleting movie:', error);
+      toast.error('Failed to delete movie.');
+    }
+  };
+
+  const openUpdateModal = (movie) => {
+    setMovieToUpdate(movie);
+    setIsUpdateModalOpen(true);
   };
 
   return (
@@ -38,7 +108,7 @@ const MoviesListPage = () => {
               <th>Name</th>
               <th>Description</th>
               <th>Rating</th>
-              <th>Showtimes</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -65,13 +135,28 @@ const MoviesListPage = () => {
                   >
                     {expandedMovieIndex === index ? 'Hide Showtimes' : 'View Showtimes'}
                   </button>
+
+                  <button
+                    className="update-button"
+                    onClick={() => openUpdateModal(movie)}
+                  >
+                    Update
+                  </button>
+
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(movie.id)}
+                  >
+                    Delete
+                  </button>
+
                   {expandedMovieIndex === index && (
                     <div className="dropdown-showtimes">
                       {movie.showTimes.map((showTime, idx) => (
                         <div className="showtime-item" key={idx}>
                           <p><strong>Date:</strong> {showTime.showDate}</p>
-                          <p><strong>Start:</strong> {showTime.showStartTime.hour}:{showTime.showStartTime.minute}</p>
-                          <p><strong>End:</strong> {showTime.showEndTime.hour}:{showTime.showEndTime.minute}</p>
+                          <p><strong>Start:</strong> {showTime.showStartTime}</p>
+                          <p><strong>End:</strong> {showTime.showEndTime}</p>
                           <p><strong>Seats:</strong> {showTime.seats.length}</p>
                         </div>
                       ))}
@@ -82,6 +167,14 @@ const MoviesListPage = () => {
             ))}
           </tbody>
         </table>
+      )}
+
+      {isUpdateModalOpen && (
+        <UpdateMovieModal
+          movie={movieToUpdate}
+          onClose={() => setIsUpdateModalOpen(false)}
+          onUpdate={handleUpdate}
+        />
       )}
     </div>
   );

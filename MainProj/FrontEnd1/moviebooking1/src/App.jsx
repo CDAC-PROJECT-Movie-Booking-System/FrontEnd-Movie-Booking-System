@@ -26,6 +26,9 @@ function App() {
   <Route path="theaterList" element={<TheaterList/>}/>
   <Route path="movieBooking/:id" element={<MovieBooking />}/>
   <Route path="movieDetails" element={<MovieDetails />}/>
+  {/* <PrivateRoute path="admin" component={<AdminPage/>} /> */}
+  {/* <Route path="admin" element={<PrivateRoute element={<AdminPage/>} />} /> */}
+
   <Route path='admin' element={<AdminPage/>}/>
   <Route path='adminMovieList' element={<MoviesListPage/>}/>
 

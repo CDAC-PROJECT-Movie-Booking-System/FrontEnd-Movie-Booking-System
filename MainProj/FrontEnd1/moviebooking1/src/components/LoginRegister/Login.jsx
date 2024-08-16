@@ -32,7 +32,12 @@ function Login() {
 
         // dispatch(loginAction())
         toast.success(`welcome to the application, ${result.data['firstName']}`)
-        navigate('/home')
+        console.log(result.data)
+        if(result.data.role === 'ROLE_USER')
+          navigate('/home')
+        if(result.data.role === 'ROLE_ADMIN'){
+          navigate('/admin')
+        }
        } 
       //  else {
       //   toast.error('invalid email or password')

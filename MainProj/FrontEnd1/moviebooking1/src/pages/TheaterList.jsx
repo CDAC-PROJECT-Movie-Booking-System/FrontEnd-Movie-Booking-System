@@ -4,7 +4,7 @@ function TheaterList(){
     return(
         <div>
             <Navbar/>
-            <h2 className="page-header">TheaterList</h2>
+            <h2 className="page-header">My Tickets</h2>
             <Footer/>
         </div>
     )

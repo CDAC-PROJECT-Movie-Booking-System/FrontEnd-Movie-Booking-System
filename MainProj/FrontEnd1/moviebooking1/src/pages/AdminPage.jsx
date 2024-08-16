@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 // import '../components/LoginRegister/LoginRegister.css';
 import '../components/AdminMovieDetails/AdminPage.css'
+import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
+  const navigate = useNavigate();
   const [movie, setMovie] = useState({
     imagePath: '',
     movieImageName: '',
@@ -64,6 +66,9 @@ const AdminPage = () => {
       console.error('Error adding movie:', error);
     }
   };
+  const handleRedirect = () => {
+    navigate('/adminMovieList'); // Change this path to match your route
+};
 
   return (
     <div className="form-container">
@@ -157,7 +162,7 @@ const AdminPage = () => {
 
             <button
               type="button"
-              className="btn btn-danger"
+              className=" btn btn-danger"
               onClick={() => removeShowTime(index)}
             >
               Remove Show Time
@@ -169,11 +174,16 @@ const AdminPage = () => {
           <button type="button" className="btn btn-primary" onClick={addShowTime}>
             Add Show Time
           </button>
+          <button type="submit" className="btn btn-success">Submit</button>
+
+          <button type="button" className="btn btn-info" onClick={handleRedirect}>Movie List</button>
+
+
         </div>
 
-        <div className="button-container">
+        {/* <div className="button-container">
           <button type="submit" className="btn btn-success">Submit</button>
-        </div>
+        </div> */}
       </form>
     </div>
   );
