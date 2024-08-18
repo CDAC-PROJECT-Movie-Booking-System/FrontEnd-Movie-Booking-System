@@ -3,7 +3,6 @@
 // import './UpdateMovieModal.css';
 
 // const UpdateMovieModal = ({ movie, onClose, onUpdate }) => {
-//   // Define formatTime to ensure time objects are converted to strings
 //   const formatTime = (time) => {
 //     if (typeof time === 'object') {
 //       const { hour = '00', minute = '00', second = '00' } = time;
@@ -51,6 +50,19 @@
 //     setUpdatedMovie({ ...updatedMovie, showTimes: newShowTimes });
 //   };
 
+//   const handleAddShowTime = () => {
+//     const newShowTimes = [
+//       ...updatedMovie.showTimes,
+//       { showStartTime: '00:00:00', showEndTime: '00:00:00', showDate: '' },
+//     ];
+//     setUpdatedMovie({ ...updatedMovie, showTimes: newShowTimes });
+//   };
+
+//   const handleRemoveShowTime = (index) => {
+//     const newShowTimes = updatedMovie.showTimes.filter((_, i) => i !== index);
+//     setUpdatedMovie({ ...updatedMovie, showTimes: newShowTimes });
+//   };
+
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
 //     onUpdate(movie.id, updatedMovie);
@@ -92,12 +104,14 @@
 
 //           <div className="form-group showtimes-table-wrapper">
 //             <h4>Showtimes</h4>
+//             <button className='btns' type="button" onClick={handleAddShowTime}>Add Showtime</button>
 //             <table className="showtimes-table">
 //               <thead>
 //                 <tr>
 //                   <th>Show Date</th>
 //                   <th>Start Time</th>
 //                   <th>End Time</th>
+//                   <th>Actions</th>
 //                 </tr>
 //               </thead>
 //               <tbody>
@@ -106,7 +120,7 @@
 //                     <td>
 //                       <input
 //                         type="date"
-//                         className='date'
+//                         className="date"
 //                         value={showTime.showDate}
 //                         onChange={(e) =>
 //                           handleShowTimeChange(index, 'showDate', e.target.value)
@@ -159,6 +173,11 @@
 //                         />
 //                       </div>
 //                     </td>
+//                     <td>
+//                       <button className='btns' type="button" onClick={() => handleRemoveShowTime(index)}>
+//                         Remove
+//                       </button>
+//                     </td>
 //                   </tr>
 //                 ))}
 //               </tbody>
@@ -176,8 +195,11 @@
 // };
 
 // export default UpdateMovieModal;
+
 import React, { useState } from 'react';
 import './UpdateMovieModal.css';
+import config from '../../config';
+import axios from 'axios';
 
 const UpdateMovieModal = ({ movie, onClose, onUpdate }) => {
   const formatTime = (time) => {
@@ -200,9 +222,15 @@ const UpdateMovieModal = ({ movie, onClose, onUpdate }) => {
     })),
   });
 
+  const [newImage, setNewImage] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdatedMovie({ ...updatedMovie, [name]: value });
+  };
+
+  const handleImageChange = (e) => {
+    setNewImage(e.target.files[0]);
   };
 
   const handleShowTimeChange = (index, field, value) => {
@@ -240,9 +268,33 @@ const UpdateMovieModal = ({ movie, onClose, onUpdate }) => {
     setUpdatedMovie({ ...updatedMovie, showTimes: newShowTimes });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onUpdate(movie.id, updatedMovie);
+    let updatedImageName = updatedMovie.movieImageName;
+    // If a new image is selected, upload it first
+    if (newImage) {
+      const formData = new FormData();
+      formData.append('movieImage', newImage);
+      const token = sessionStorage.getItem('token')
+      try {
+       const response = await axios.post(`${config.url}/moviestest/image/${movie.id}`, formData, {
+          headers: {
+            'Authorization': token, // Include the token in the Authorization header
+            'Content-Type': 'multipart/form-data' // This header is automatically set when using FormData
+          }
+        });
+        console.log(response)
+        updatedImageName = response.data.imageName;
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
+    const finalUpdatedMovie = {
+      ...updatedMovie,
+      movieImageName: updatedImageName, // Use the updated image name if new image was uploaded
+    };
+    // Then, update the movie details
+    onUpdate(movie.id, finalUpdatedMovie);
   };
 
   return (
@@ -279,9 +331,18 @@ const UpdateMovieModal = ({ movie, onClose, onUpdate }) => {
             />
           </div>
 
+          <div className="form-group">
+            <label>Update Movie Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </div>
+
           <div className="form-group showtimes-table-wrapper">
             <h4>Showtimes</h4>
-            <button className='btns' type="button" onClick={handleAddShowTime}>Add Showtime</button>
+            <button className="btns" type="button" onClick={handleAddShowTime}>Add Showtime</button>
             <table className="showtimes-table">
               <thead>
                 <tr>
@@ -351,7 +412,7 @@ const UpdateMovieModal = ({ movie, onClose, onUpdate }) => {
                       </div>
                     </td>
                     <td>
-                      <button className='btns' type="button" onClick={() => handleRemoveShowTime(index)}>
+                      <button className="btns" type="button" onClick={() => handleRemoveShowTime(index)}>
                         Remove
                       </button>
                     </td>

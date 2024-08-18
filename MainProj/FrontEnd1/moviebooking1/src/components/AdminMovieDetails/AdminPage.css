@@ -32,3 +32,19 @@
   .btn {
     margin-left: 10px;
   }
+  
+  .top-bar {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    display: flex;
+    justify-content: flex-end;
+    width: calc(100% - 20px); /* Adjust width to account for padding/margin */
+  }
+  
+  .logout-button {
+    margin-left: auto; /* Pushes the button to the far right */
+    width: 10%;
+  }
+  
+  

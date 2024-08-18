@@ -9,7 +9,7 @@ import { increment, decrement, reset } from '../../Redux/cart/cartSlice';
 import { useParams } from 'react-router-dom';
 import { fetchMovieDetailsByid } from '../../Services/MovieList';
 import config from '../../config';
-import { availableSeats, findShowtime, updateSeats } from '../../Services/Showtimes';
+import { availableSeats, bookSeat, findShowtime, updateSeats } from '../../Services/Showtimes';
 import { toast } from 'react-toastify';
 
 const MovieDetails = ({ movieData }) => {
@@ -217,6 +217,7 @@ const MovieBookings = () => {
       await paymentStart(totalCost);
       // After payment is successful, update seats
       toast.success("Your Seat has been booked!!")
+      await bookSeat(selectedSeats, id, movieData.id,showtimeId, totalCost)
       await updateSeats(selectedSeats);
       // Reset the cart
       dispatch(reset());
