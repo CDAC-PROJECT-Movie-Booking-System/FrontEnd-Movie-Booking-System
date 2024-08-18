@@ -26,6 +26,7 @@ function Navbar() {
 
   const onLogOut = () => {
     sessionStorage.removeItem('name');
+    sessionStorage.removeItem('token');
     window.location.reload();
     navigate('/home');
   }

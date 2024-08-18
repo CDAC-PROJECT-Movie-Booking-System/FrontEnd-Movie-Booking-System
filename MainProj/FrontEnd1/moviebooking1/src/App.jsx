@@ -10,6 +10,8 @@ import MovieDetails from './pages/MoviesDetails';
 import TheaterList from './pages/TheaterList';
 import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
+import AdminPage from './pages/AdminPage';
+import MoviesListPage from './components/AdminMovieDetails/MoviesListPage';
 
 
 function App() {
@@ -24,6 +26,13 @@ function App() {
   <Route path="theaterList" element={<TheaterList/>}/>
   <Route path="movieBooking/:id" element={<MovieBooking />}/>
   <Route path="movieDetails" element={<MovieDetails />}/>
+  {/* <PrivateRoute path="admin" component={<AdminPage/>} /> */}
+  {/* <Route path="admin" element={<PrivateRoute element={<AdminPage/>} />} /> */}
+
+  <Route path='admin' element={<AdminPage/>}/>
+  <Route path='adminMovieList' element={<MoviesListPage/>}/>
+
+
   
 </Routes>
 <ToastContainer />

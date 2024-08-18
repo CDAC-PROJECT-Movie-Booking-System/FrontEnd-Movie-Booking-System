@@ -54,6 +54,31 @@ export async function updateSeats(selectedSeats) {
     }
   };
 
+  export async function bookSeat(selectedSeats, userId, movieId, showtimeId, totalPrice){
+    try {
+        const token = sessionStorage.getItem('token')
+        const numericUserId = Number(userId);
+        const id = selectedSeats.map(seat => seat.id);
+        const response = await axios.post(`${config.url}/api/bookings`, {
+            userId : numericUserId,
+            id,
+            movieId,
+            showtimeId,
+            totalPrice
+        },
+        {
+            headers: {
+                Authorization: token // Include the token in the Authorization header
+            }
+        }
+    );
+        console.log(response)
+        return response.data
+    } catch (error) {
+        console.error('Error Booking seats:', error);
+    }
+  }
+
 // export async function fetchSliderDetails(firstName, lastName, email, password){
 //     const body = {
 //         firstName, lastName, email, password

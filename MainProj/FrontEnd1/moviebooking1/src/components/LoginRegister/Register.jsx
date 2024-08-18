@@ -41,7 +41,7 @@ function Register() {
       toast.warning('password does not match')
     } else {
       const result = await userRegister(firstName, lastName, email, password)
-      if (result['message'] === 'success') {
+      if (result['status'] === 200) {
         toast.success('successfully registered a user')
         navigate('/login')
       } else {
