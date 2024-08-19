@@ -214,15 +214,16 @@ const MovieBookings = () => {
     try {
       const selectedSeats = seats.filter(seat => seat.isSeatAvailable === 'selected');
       // Start the payment process
+      const userId = sessionStorage.getItem('userId')
       await paymentStart(totalCost);
       // After payment is successful, update seats
       toast.success("Your Seat has been booked!!")
-      await bookSeat(selectedSeats, id, movieData.id,showtimeId, totalCost)
+      await bookSeat(selectedSeats, userId, movieData.id,showtimeId, totalCost)
       await updateSeats(selectedSeats);
       // Reset the cart
       dispatch(reset());
     } catch (error) {
-      if(error.response.status==401)
+      if(error.response.status===401)
         toast.error("Log in required!!!")
       else
         toast.error("Select tickets")

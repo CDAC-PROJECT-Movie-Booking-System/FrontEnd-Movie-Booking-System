@@ -28,6 +28,7 @@ function Login() {
       //   const { token, name } = result['data']
       //   sessionStorage.setItem('token', token)
         sessionStorage.setItem('name', result.data.firstName)
+        sessionStorage.setItem('userId', result.data.id)
         sessionStorage.setItem('token', `Bearer ${result.data.jwt}`)
 
         // dispatch(loginAction())
