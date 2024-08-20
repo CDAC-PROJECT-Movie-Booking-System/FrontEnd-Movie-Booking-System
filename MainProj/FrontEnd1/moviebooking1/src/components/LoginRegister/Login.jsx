@@ -8,11 +8,7 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  // get the navigate object
   const navigate = useNavigate()
-
-  // use dispatch to update global state
-  //const dispatch = useDispatch()
 
   const onLogin = async () => {
     // client side validation
@@ -24,9 +20,7 @@ function Login() {
       const result = await userLogin(email, password)
       // console.log(result['message'])
       if (result !== undefined && result.status === 200) {
-        // console.log(result)
-      //   const { token, name } = result['data']
-      //   sessionStorage.setItem('token', token)
+
         sessionStorage.setItem('name', result.data.firstName)
         sessionStorage.setItem('userId', result.data.id)
         sessionStorage.setItem('token', `Bearer ${result.data.jwt}`)
@@ -40,9 +34,7 @@ function Login() {
           navigate('/admin')
         }
        } 
-      //  else {
-      //   toast.error('invalid email or password')
-      // }
+
   }
 }
 
@@ -79,7 +71,7 @@ function Login() {
         </div>
         <div className='button-container'>
           <button onClick={onLogin} className='btn btn-success'>Login</button>
-          <button onClick={onBack} className='btn btn-back'>Back</button>
+          <button onClick={onBack} className='btn btn-danger'>Back</button>
         </div>
       </div>
     </div>
