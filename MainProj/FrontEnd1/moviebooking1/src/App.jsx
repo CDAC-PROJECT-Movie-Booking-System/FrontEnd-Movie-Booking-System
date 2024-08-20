@@ -12,6 +12,7 @@ import Login from './components/LoginRegister/Login';
 import Register from './components/LoginRegister/Register';
 import AdminPage from './pages/AdminPage';
 import MoviesListPage from './components/AdminMovieDetails/MoviesListPage';
+import SinglePage from './components/watch/SinglePage';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
 
   <Route path='admin' element={<AdminPage/>}/>
   <Route path='adminMovieList' element={<MoviesListPage/>}/>
+  <Route path='singlepage/:id' element={<SinglePage/>}/>
 
 
   

@@ -4,6 +4,7 @@ import Navbar from "../components/navbar/Navbar";
 import { Upcomming } from "../components/upcomming/Upcomming";
 import logoPage from "../file.png";
 import {upcome} from "../dummyData"
+import { Link } from "react-router-dom";
 
 function HomePage() {
   const [items, setitems] = useState(upcome)
@@ -24,7 +25,9 @@ function HomePage() {
             <div>
              { name == '' ? (<></>)  : (<h1>Welcome {name},</h1>) }
             <h1>Book your favorite movie tickets & enjoy the show!</h1>
+            <Link to='movieList' >
             <button className="book-tickets-btn">Book tickets</button>
+            </Link>
             </div>
             <div className="hero-image">
               <img src={logoPage} alt="Hero" />
