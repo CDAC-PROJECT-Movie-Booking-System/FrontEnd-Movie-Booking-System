@@ -38,9 +38,11 @@ const MovieSliderCard = ({ item: { id, cover, name, rating, time, desc, starring
                 {tags}
               </h4>
             </div>
+            <Link to={`/singlepage/${id}`}>
             <button className='primary-btn'>
               <i className='fas fa-play'></i> PLAY NOW
             </button>
+            </Link>
           </div>
           <div className='palyButton row'>
             <Link to={`/singlepage/${id}`}>

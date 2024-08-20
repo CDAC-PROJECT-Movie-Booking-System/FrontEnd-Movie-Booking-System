@@ -3,9 +3,12 @@ import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import './LoginRegister.css'
 import { userRegister } from "../../Services/User"
+import { useTranslation } from 'react-i18next';
+
 
 function Register() {
   // create state members
+  const { t, i18n } = useTranslation();
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -24,42 +27,45 @@ function Register() {
   }
 
   const onRegister = async () => {
-    // client side validation
     if (firstName.length === 0) {
-      toast.warning('enter first name')
+      toast.warning(t('enterFirstName'));
     } else if (lastName.length === 0) {
-      toast.warning('enter last name')
+      toast.warning(t('enterLastName'));
     } else if (email.length === 0) {
-      toast.warning('enter email')
+      toast.warning(t('enterEmail'));
     } else if (!isValidEmail()) {
-      toast.warning('Email is not valid')
+      toast.warning(t('invalidEmail'));
     } else if (password.length === 0) {
-      toast.warning('enter password')
+      toast.warning(t('enterPassword'));
     } else if (confirmPassword.length === 0) {
-      toast.warning('confirm password')
+      toast.warning(t('confirmPassword'));
     } else if (password !== confirmPassword) {
-      toast.warning('password does not match')
+      toast.warning(t('passwordMismatch'));
     } else {
-      const result = await userRegister(firstName, lastName, email, password)
+      const result = await userRegister(firstName, lastName, email, password);
       if (result['status'] === 200) {
-        toast.success('successfully registered a user')
-        navigate('/login')
+        toast.success(t('registrationSuccess'));
+        navigate('/login');
       } else {
-        toast.error('Failed to register the user')
+        toast.error(t('registrationFailed'));
       }
     }
-  }
+  };
 
   const onBack = () => {
     navigate(-1); // Navigate to the previous page
   }
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'hi' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   return (
     <div className='form-container'>
       <div className='form'>
-        <h2 className='page-header'>Register</h2>
+        <h2 className='page-header'>{t('register')}</h2>
         <div className='mb-3'>
-          <label htmlFor='firstName'>First Name</label>
+          <label htmlFor='firstName'>{t('firstName')}</label>
           <input
             onChange={(e) => setFirstName(e.target.value)}
             type='text'
@@ -68,7 +74,7 @@ function Register() {
           />
         </div>
         <div className='mb-3'>
-          <label htmlFor='lastName'>Last Name</label>
+          <label htmlFor='lastName'>{t('lastName')}</label>
           <input
             onChange={(e) => setLastName(e.target.value)}
             type='text'
@@ -77,7 +83,7 @@ function Register() {
           />
         </div>
         <div className='mb-3'>
-          <label htmlFor='email'>Email</label>
+          <label htmlFor='email'>{t('email')}</label>
           <input
             onChange={(e) => setEmail(e.target.value)}
             type='email'
@@ -85,17 +91,8 @@ function Register() {
             id='email'
           />
         </div>
-        {/* <div className='mb-3'>
-          <label htmlFor='phone'>Phone Number</label>
-          <input
-            onChange={(e) => setPhone(e.target.value)}
-            type='tel'
-            className='form-control'
-            id='phone'
-          />
-        </div> */}
         <div className='mb-3'>
-          <label htmlFor='password'>Password</label>
+          <label htmlFor='password'>{t('password')}</label>
           <input
             onChange={(e) => setPassword(e.target.value)}
             type='password'
@@ -104,7 +101,7 @@ function Register() {
           />
         </div>
         <div className='mb-3'>
-          <label htmlFor='confirmPassword'>Confirm Password</label>
+          <label htmlFor='confirmPassword'>{t('confirmPassword')}</label>
           <input
             onChange={(e) => setConfirmPassword(e.target.value)}
             type='password'
@@ -113,16 +110,21 @@ function Register() {
           />
         </div>
         <div className='mb-3'>
-          Already have an account? <Link to='/login'>Login here</Link>
+          {t('alreadyHaveAccount')} <Link to='/login'>{t('Login')}</Link>
+        </div>
+        <div className='mb-3'>
+          <button onClick={toggleLanguage} className='btn btn-info'>
+            {t('languageToggle')}
+          </button>
         </div>
         <div className='button-container'>
-          <button onClick={onRegister} className='btn btn-success'>Register</button>
-          <button onClick={onCancel} className='btn btn-danger'>Cancel</button>
-          <button onClick={onBack} className='btn btn-back'>Back</button>
+          <button onClick={onRegister} className='btn btn-success'>{t('registerButton')}</button>
+          <button onClick={onCancel} className='btn btn-danger'>{t('cancelButton')}</button>
+          <button onClick={onBack} className='btn btn-secondary'>{t('backButton')}</button>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Register
