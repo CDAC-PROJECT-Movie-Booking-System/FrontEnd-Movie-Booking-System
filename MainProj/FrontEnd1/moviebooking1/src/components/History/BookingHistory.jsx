@@ -17,6 +17,7 @@ const BookingHistory = () => {
         }
         });
         setBookings(response.data);
+        console.log(response)
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }
@@ -39,7 +40,9 @@ const BookingHistory = () => {
               <p><strong>User:</strong> {booking.userName}</p>
               <p><strong>Showtime:</strong> {booking.showtime}</p>
               <p><strong>Booking Date:</strong> {booking.bookingDate}</p>
-              <p><strong>Seats:</strong> {booking.seats.length > 0 ? booking.seats.join(', ') : 'No seats selected'}</p>
+              <p><strong>Show Date:</strong> {booking.showDate}</p>
+              <p><strong>Amount:</strong> {booking.amount}</p>
+              <p><strong>Seat NO:</strong> {booking.seats.length > 0 ? booking.seats.join(', ') : 'No seats selected'}</p>
             </div>
           </div>
         ))

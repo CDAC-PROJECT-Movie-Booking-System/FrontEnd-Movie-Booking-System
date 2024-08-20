@@ -58,10 +58,10 @@ export async function updateSeats(selectedSeats) {
     try {
         const token = sessionStorage.getItem('token')
         const numericUserId = Number(userId);
-        const id = selectedSeats.map(seat => seat.id);
+        const seatId = selectedSeats.map(seat => seat.id);
         const response = await axios.post(`${config.url}/api/bookings`, {
             userId : numericUserId,
-            id,
+            seatId,
             movieId,
             showtimeId,
             totalPrice
